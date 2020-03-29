@@ -1,5 +1,4 @@
-
-  
+ 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class AssessedCW1 {
             System.exit(0);  
         }
         if(file.length() == 0) {  
-                System.out.println("The text file is empty, sorry I can't analyse it, please add something to it.");
+                System.out.println("The text file is empty, sorry I can't analyse it. Please add something to it.");
                 System.exit(0);  
         }
         Word word=new Word();                                      
@@ -55,12 +54,14 @@ public class AssessedCW1 {
          
             if(String.valueOf(c).equals("\r")||String.valueOf(c).equals("\n")||String.valueOf(c).equals(" ")||String.valueOf(c).equals(",")||String.valueOf(c).equals(".")||String.valueOf(c).equals("\"")||String.valueOf(c).equals("'"))
             {
-                chainNode=word;
-                while(chainNode!=null)            
+                chainNode = word;
+                while(chainNode != null)            
                 {
                     if(chainNode.value.equalsIgnoreCase(str))          
                     {
-                        chainNode.times++;exist=true;break;
+                        chainNode.times++;
+                        exist=true;
+                        break;
                     }
                     else
                     {
@@ -126,11 +127,11 @@ public class AssessedCW1 {
                 }
                 chainNode=chainNode.next;
             }    
-            
+            newNode.value = newNode.value.toLowerCase();
             System.out.println("The most frequent word is \""+newNode.value+"\", appeared "+newNode.times+" times.");
             System.out.println();
             
-            chainNode=word;
+            chainNode = word;
             Boolean oexist = false;
             
             while(chainNode!=null)
@@ -148,13 +149,14 @@ public class AssessedCW1 {
             }
 
             chainNode=word;
-            System.out.print("Those words appeared only one time:");
+            System.out.print("Those words appeared only one time: ");
             while(chainNode!=null)
             {
                 
                 if(chainNode.times==1)
                 {
-                    System.out.print(" \""+ chainNode.value+"\"");
+                    chainNode.value = chainNode.value.toLowerCase();
+                    System.out.print("\""+ chainNode.value+"\"");
                 }
                 chainNode=chainNode.next;
             }
