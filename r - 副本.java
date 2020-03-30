@@ -1,124 +1,45 @@
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-                                 
-public class r {
-    public static void main(String args[]) throws IOException     
-    {
-        Word word=new Word();                                      
-        Word Node,newNode;                                             
-        String str="";
-        FileReader f =new FileReader("text.txt");                
-        char[] c=new char[1];                                
-        int b=0;
-        boolean exist=false;                             
-        while((b=f.read(c))!=-1)                            
-        {
-         
-            if(String.valueOf(c).equals("\r")||String.valueOf(c).equals("\n")||String.valueOf(c).equals(" ")||String.valueOf(c).equals(",")||String.valueOf(c).equals(".")||String.valueOf(c).equals("\"")||String.valueOf(c).equals("'"))
-            {
-                Node=word;
-                while(Node!=null)            
-                {
-                    if(Node.value.equalsIgnoreCase(str))          
-                    {
-                        Node.geshu++;exist=true;break;
-                    }
-                    else
-                    {
-                        Node=Node.next;
-                    }
-                }
-                if(exist==false)                       
-                {
-                    newNode=new Word(str,1);
-                    newNode.next=word.next;
-                    word.next=newNode;
-                    str="";
-                }
-                else
-                {
-                    exist=false;
-                    str="";
-                }
-            }
-            else                                     
-            {
-                str+=String.valueOf(c);
-            }
-        }
-        if (str!=""){
-            Node=word;
-                while(Node!=null)            
-                {
-                    if(Node.value.equalsIgnoreCase(str))          
-                    {
-                        Node.geshu++;exist=true;break;
-                    }
-                    else
-                    {
-                        Node=Node.next;
-                    }
-                }
-                if(exist==false)                       
-                {
-                    newNode=new Word(str,1);
-                    newNode.next=word.next;
-                    word.next=newNode;
-                    str="";
-                }
-                else
-                {
-                    exist=false;
-                    str="";
-                }
-        }
-      
-        for(int i=1;i<=1;i++)                   
-        {
-            newNode=new Word("",0);
-            Node=word;
+public class Animal {
+    public static void main(String[] args) {
+      show(new Cat());  
+      show(new Dog());  
+                
+      Animal a = new Cat();  // 向上转型  
+      a.eat();               // 调用的是 Cat 的 eat
+      Cat c = (Cat)a;        // 向下转型  
+      c.work();        // 调用的是 Cat 的 work
+  }  
             
-            while(Node!=null)
-            {
-                if(Node.geshu>=newNode.geshu)
-                {
-                    newNode=Node;
-                }
-                Node=Node.next;
-            }
-          
-            System.out.println(newNode.value+" "+newNode.geshu);
-            // Node=word;
-            // while(Node!=null)
-            // {
-            //     if(Node.geshu>newNode.geshu)
-            //     {
-            //         newNode=Node;
-            //     }
-            //     Node=Node.next;
-            // }
-           
-        }
-    }
+    public static void show(Animal a)  {
+      a.eat();  
+        // 类型判断
+        if (a instanceof Cat)  {  // 猫做的事情 
+            Cat c = (Cat)a;  
+            c.work();  
+        } else if (a instanceof Dog) { // 狗做的事情 
+            Dog c = (Dog)a;  
+            c.work();  
+        }  
+    }  
 }
-class Word                                      
-{
-    String value;                                  
-    int geshu;                                     
-    Word next;                                    
-    public Word(String value,int geshu)           
-    {
-        this.value=value;
-        this.geshu=geshu;
-        next=null;
-    }
-    public Word()                                 
-    {
-        this.value="";
-        this.geshu=0;
-        next=null;
-    }
-}       
-//https://www.cnblogs.com/lizhiyan-world/p/3574414.html
+ 
+abstract class Animal {  
+    abstract void eat();  
+}  
+  
+class Cat extends Animal {  
+    public void eat() {  
+        System.out.println("吃鱼");  
+    }  
+    public void work() {  
+        System.out.println("抓老鼠");  
+    }  
+}  
+  
+class Dog extends Animal {  
+    public void eat() {  
+        System.out.println("吃骨头");  
+    }  
+    public void work() {  
+        System.out.println("看家");  
+    }  
+}

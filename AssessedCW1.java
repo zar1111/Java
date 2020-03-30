@@ -47,7 +47,8 @@ public class AssessedCW1 {
             break;
             }
         }
-        precheck.close();                            
+        precheck.close();
+
         while((formalread.read(c))!=-1)                            
         {
             //System.out.print(String.valueOf(c));
@@ -87,85 +88,86 @@ public class AssessedCW1 {
             }
         }
         formalread.close();
-        if (str!=""){
-            
-                chainNode=word;
-                while(chainNode!=null)            
+
+        if (str!=""){            
+            chainNode=word;
+            while(chainNode!=null)            
+            {
+                if(chainNode.value.equalsIgnoreCase(str))          
                 {
-                    if(chainNode.value.equalsIgnoreCase(str))          
-                    {
-                        chainNode.times++;exist=true;break;
-                    }
-                    else
-                    {
-                        chainNode=chainNode.next;
-                    }
-                }
-                if(exist==false)                       
-                {
-                    newNode=new Word(str,1);
-                    newNode.next=word.next;
-                    word.next=newNode;
-                    str="";
+                    chainNode.times++;exist=true;break;
                 }
                 else
                 {
-                    exist=false;
-                    str="";
+                    chainNode=chainNode.next;
                 }
+            }
+            if(exist==false)                       
+            {
+                newNode=new Word(str,1);
+                newNode.next=word.next;
+                word.next=newNode;
+                str="";
+            }
+            else
+            {
+                exist=false;
+                str="";
+            }
         }
       
         //int i = 1;
         newNode=new Word("",0);
-            chainNode=word.next;
-            
+        chainNode=word.next;
+        
         while(chainNode!=null)
+        {
+            if(chainNode.times>=newNode.times)
             {
-                if(chainNode.times>=newNode.times)
-                {
-                    newNode=chainNode;
-                }
-                chainNode=chainNode.next;
-            }    
-            newNode.value = newNode.value.toLowerCase();
-            System.out.println("The most frequent word is \""+newNode.value+"\", appeared "+newNode.times+" times.");
-            System.out.println();
+                newNode=chainNode;
+            }
+            chainNode=chainNode.next;
+        }    
+        newNode.value = newNode.value.toLowerCase();
+        System.out.println("The most frequent word is \""+newNode.value+"\", appeared "+newNode.times+" times.");
+        System.out.println();
+        
+        chainNode = word;
+        Boolean oexist = false;
+        
+        while(chainNode!=null)
+        {
             
-            chainNode = word;
-            Boolean oexist = false;
-            
-            while(chainNode!=null)
+            if(chainNode.times==1)
             {
-                
-                if(chainNode.times==1)
-                {
-                    oexist = true;
-                }
-                chainNode=chainNode.next;
+                oexist = true;
             }
-            if(oexist == false){
-                System.out.println("There is no word appears only once.");
-                System.exit(0);
-            }
+            chainNode=chainNode.next;
+        }
+        if(oexist == false){
+            System.out.println("There is no word appears only once.");
+            System.exit(0);
+        }
 
-            chainNode=word;
-            System.out.print("Those words appeared only one time: ");
-            while(chainNode!=null)
+        chainNode=word;
+        System.out.print("Those words appeared only one time: ");
+        while(chainNode!=null)
+        {
+            
+            if(chainNode.times==1)
             {
-                
-                if(chainNode.times==1)
-                {
-                    chainNode.value = chainNode.value.toLowerCase();
-                    System.out.print("\""+ chainNode.value+"\"");
-                }
-                chainNode=chainNode.next;
+                chainNode.value = chainNode.value.toLowerCase();
+                System.out.print("\""+ chainNode.value+"\"");
             }
-            System.out.print(".");    
-           
-            System.out.println();
+            chainNode=chainNode.next;
+        }
+        System.out.print(".");    
+        
+        System.out.println();
  
     }
 }
+
 class Word                                      
 {
     String value;                                  
@@ -183,5 +185,22 @@ class Word
         this.times=0;
         next=null;
     }
-}       
+}   
+abstract class Prompt {  
+    abstract void promp();  
+}  
+  
+class Prompt0 extends Prompt {  
+    public void promp() {  
+        System.out.println("There is no word appears only once.");  
+    }  
+   
+}  
+  
+class Prompt1 extends Prompt {  
+    public void promp() {  
+        System.out.print("Those words appeared only one time: ");  
+    }  
+    
+}    
 
