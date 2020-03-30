@@ -200,7 +200,7 @@ class Prompt0 extends Prompt {
 class Prompt1 extends Prompt {  
     public void promp() {  
         System.out.print("Those words appeared only one time: ");  
-    }  
+    }   
     
 }    
 
